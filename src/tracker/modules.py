@@ -16,6 +16,7 @@ class Tracker(object):
         self.trackingWindow = None
         self.hist = None
         self.sizeTreshold = sizeTreshold
+        self.lastWindow = None
 
     def setState(self, state):
         '''
@@ -28,7 +29,7 @@ class Tracker(object):
         '''
         This method returns the state of the tracker.
         '''
-        if self.state:
+        if self.state is not None:
             return self.state
 
     def initialize(self, selection, hist):
@@ -36,7 +37,8 @@ class Tracker(object):
         This method initializes the tracker with supplied
         histogram and tracking box, and will set the state to tracking.
         '''
-        self.tracking_window = selection
+        x0, y0, x1, y1 = selection
+        self.trackingWindow = (x0, y0, x1-x0, y1-y0)
         self.hist = hist
         self.setState(TRACKING)
 
@@ -57,6 +59,9 @@ class Tracker(object):
             frame, self.trackingWindow, term_crit)
         if self.windowSize() <= self.sizeTreshold:
             self.setState(MISSING)
+            if self.lastWindow is not None:
+                self.trackingWindow = self.lastWindow
         else:
             self.setState(TRACKING)
+            self.lastWindow = self.trackingWindow
         return self.state, trackBox[0]
