@@ -11,20 +11,20 @@ class Tracker(object):
     '''
     The wrapper for camshift algorithm in OpenCV.
     '''
-    def __init__(self, size_treshold=4):
+    def __init__(self, sizeTreshold=4):
         self.state = PENDING
-        self.tracking_window = None
+        self.trackingWindow = None
         self.hist = None
-        self.size_treshold = size_treshold
+        self.sizeTreshold = sizeTreshold
 
-    def set_state(self, state):
+    def setState(self, state):
         '''
         This method sets the state of the tracker.
         '''
         if state in [PENDING, TRACKING, MISSING]:
             self.state = state
 
-    def get_state(self):
+    def getState(self):
         '''
         This method returns the state of the tracker.
         '''
@@ -38,25 +38,25 @@ class Tracker(object):
         '''
         self.tracking_window = selection
         self.hist = hist
-        self.set_state(TRACKING)
+        self.setState(TRACKING)
 
-    def window_size(self):
+    def windowSize(self):
         '''
         This method calculates the size of tracking window.
         '''
-        return abs(self.tracking_window[2] * self.tracking_window[3])
+        return abs(self.trackingWindow[2] * self.trackingWindow[3])
 
-    def tick(self, frame, additional_mask = None):
+    def tick(self, frame, additionalMask = None):
         '''
         This method should be executed every frame.
         '''
-        if additional_mask:
-            frame &= additional_mask
+        if additionalMask:
+            frame &= additionalMask
         term_crit = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1)
-        track_box, self.tracking_window = cv2.CamShift(
-            frame, self.tracking_window, term_crit)
-        if self.window_size() <= self.size_treshold:
-            self.set_state(MISSING)
+        trackBox, self.trackingWindow = cv2.CamShift(
+            frame, self.trackingWindow, term_crit)
+        if self.windowSize() <= self.sizeTreshold:
+            self.setState(MISSING)
         else:
-            self.set_state(TRACKING)
-        return self.state, track_box[0]
+            self.setState(TRACKING)
+        return self.state, trackBox[0]
