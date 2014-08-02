@@ -74,8 +74,8 @@ class TrackingDevice(object):
                 mark.draw_machine_mark(60, coord, visual)
         cv2.imshow(self.mainWindow, visual)
 
-a = TrackingDevice(1)
-b = TrackingDevice(0)
+a = TrackingDevice(0)
+b = TrackingDevice(2)
 while True:
     a.tick()
     b.tick()
