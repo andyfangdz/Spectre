@@ -18,7 +18,7 @@ public:
 	cameraInput cap1;
 	Mat E;
 	Mat F;
-	vector<cv::Mat> R, T;
+	Mat R, T;
 	void calibrate();
 	void saveRigConfig(string fileName);
 	void loadRigConfig(string fileName);

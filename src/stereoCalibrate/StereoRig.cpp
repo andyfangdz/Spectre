@@ -50,7 +50,7 @@ void StereoRig::calibrate()
 			{
 				for (int j = 0; j < 9; j++)
 				{
-					cv::Point3f cur(j*length, i*length, 0);
+					cv::Point3f cur(j * length, i * length, 0);
 					objPoints.push_back(cur);
 				}
 			}
@@ -70,7 +70,7 @@ void StereoRig::calibrate()
 				cv::cvtColor(img0, img0, cv::COLOR_GRAY2BGR);
 				cv::cvtColor(img1, img1, cv::COLOR_GRAY2BGR);
 				cv::drawChessboardCorners(img0, chessboardSize, cv::Mat(corners0), true);
-				cv::drawChessboardCorners(img1, chessboardSize, cv::Mat(corners0), true);
+				cv::drawChessboardCorners(img1, chessboardSize, cv::Mat(corners1), true);
 				img_points0.push_back(corners0);
 				img_points1.push_back(corners1);
 				obj_points.push_back(objPoints);
@@ -88,9 +88,9 @@ void StereoRig::calibrate()
 }
 
 
-void StereoRig::saveRigConfig(string fileName)
+void StereoRig::loadRigConfig(string fileName)
 {
-	FileStorage fs(fileName, FileStorage::WRITE);
+	FileStorage fs(fileName, FileStorage::READ);
 	fs["CameraMatrix0"]>>cap0.cameraMatrix;
 	fs["distCoeffs0"]>>cap0.distCoeffs;
 	fs["CameraMatrix1"]>>cap1.cameraMatrix;
@@ -99,12 +99,13 @@ void StereoRig::saveRigConfig(string fileName)
 	fs["T"]>>T;
 	fs["E"]>>E;
 	fs["F"]>>F;
+	fs.release();
 }
 
 
-void StereoRig::loadRigConfig(string fileName)
+void StereoRig::saveRigConfig(string fileName)
 {
-	FileStorage fs(fileName, FileStorage::READ);
+	FileStorage fs(fileName, FileStorage::WRITE);
 	fs << "CameraMatrix0" << cap0.cameraMatrix;
 	fs << "distCoeffs0" << cap0.distCoeffs;
 	fs << "CameraMatrix1" << cap1.cameraMatrix;
