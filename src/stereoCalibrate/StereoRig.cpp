@@ -85,6 +85,7 @@ void StereoRig::calibrate()
 		}
 	}
 	stereoCalibrate(obj_points, img_points0, img_points1, cap0.cameraMatrix, cap0.distCoeffs, cap1.cameraMatrix, cap1.distCoeffs, cv::Size(640, 480), R, T, E, F);
+	stereoRectify(cap0.cameraMatrix, cap0.distCoeffs, cap1.cameraMatrix, cap1.distCoeffs, cv::Size(640, 480), R, T, R0, R1, projectionMatrix0, projectionMatrix1, Q);
 }
 
 
@@ -99,7 +100,11 @@ void StereoRig::loadRigConfig(string fileName)
 	fs["T"]>>T;
 	fs["E"]>>E;
 	fs["F"]>>F;
-	fs.release();
+	fs["Q"] >> Q;
+	fs["R0"] >> R0;
+	fs["R1"] >> R1;
+	fs["projectionMatrix0"] >> projectionMatrix0;
+	fs["projectionMatrix1"] >> projectionMatrix1;
 }
 
 
@@ -114,4 +119,10 @@ void StereoRig::saveRigConfig(string fileName)
 	fs << "T" << T;
 	fs << "E" << E;
 	fs << "F" << F;
+	fs << "Q" << Q;
+	fs << "R0" << R0;
+	fs << "R1" << R1;
+	fs << "projectionMatrix0" << projectionMatrix0;
+	fs << "projectionMatrix1" << projectionMatrix1;
+	fs.release();
 }

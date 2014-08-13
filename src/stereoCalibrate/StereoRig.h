@@ -19,6 +19,9 @@ public:
 	Mat E;
 	Mat F;
 	Mat R, T;
+	Mat projectionMatrix0, projectionMatrix1;
+	Mat R0, R1;
+	Mat T0, T1, Q;
 	void calibrate();
 	void saveRigConfig(string fileName);
 	void loadRigConfig(string fileName);

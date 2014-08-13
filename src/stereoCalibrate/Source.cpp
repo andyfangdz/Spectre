@@ -16,6 +16,6 @@ int main()
 	cap.cap0.calibrateByFiles(fileList, 6);
 	cap.cap1.calibrateByFiles(fileList, 6);
 	cap.calibrate();
-	cap.saveRigConfig("config.yaml");
+	cap.saveRigConfig("new.yaml");
 	return 0;
 }

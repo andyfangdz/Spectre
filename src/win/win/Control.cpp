@@ -1,7 +1,7 @@
 #include "Control.h"
 
 using namespace std;
-Control::Control(int videoSource)
+Control::Control(cameraInput videoSource)
 {
 	Vmin = 10, Vmax = 256, Smin = 30, Smax = 256;
 	isActive = false;
