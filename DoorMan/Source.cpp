@@ -5,6 +5,11 @@ using namespace std;
 
 int main()
 {
+	/* 
+	* For a path to be a valid score:
+	* a) pt0: not isBehindPlane
+	* b) pt1: isInsideBox
+	*/
 	Point3f tmp[8];
 	tmp[0] = Point3f(0, 0, 0);
 	tmp[1] = Point3f(1, 0, 0);
@@ -21,7 +26,7 @@ int main()
 	{
 		Point3f tmp;
 		cin >> tmp.x >> tmp.y >> tmp.z;
-		cout << door.isInsideBox(tmp) << endl;
+		cout << door.isBehindPlane(tmp) << endl;
 	}
 	system("pause");
 	return 0;

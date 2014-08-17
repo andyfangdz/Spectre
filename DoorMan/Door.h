@@ -13,5 +13,6 @@ public:
 	Point3f pts[8];
 	double detWithPlane(int a, int b, int c, Point3f pt);
 	bool isInsideBox(Point3f pt);
+	bool isBehindPlane(Point3f pt);
 };
 

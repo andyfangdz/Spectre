@@ -39,3 +39,9 @@ bool Door::isInsideBox(Point3f pt)
 	}
 	return false;
 }
+
+
+bool Door::isBehindPlane(Point3f pt)
+{
+	return detWithPlane(5, 1, 4, pt) > 0;
+}
